@@ -36,7 +36,10 @@ class Hub extends HookWidget {
             index: index.value,
             changeIndex: (int a) {
               index.value = a;
-            }),
+            },
+            icons: HubList.icon,
+            labels: HubList.label,
+        ),
         body: HubList.ui[index.value]
     );
   }
