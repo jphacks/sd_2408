@@ -9,10 +9,14 @@ class HackNavigationBar extends StatelessWidget {
     super.key,
     required this.index,
     required this.changeIndex,
+    required this.icons,
+    required this.labels
   });
 
   final int index;
   final void Function(int) changeIndex;
+  final List<IconData> icons;
+  final List<String> labels;
 
   @override
   Widget build(context) {
@@ -21,10 +25,10 @@ class HackNavigationBar extends StatelessWidget {
         onDestinationSelected: changeIndex,
         selectedIndex: index,
         destinations: [
-          for (int i = 0; i < HubList.ui.length; i++)
+          for (int i = 0; i < icons.length; i++)
             NavigationDestination(
-              icon: Icon(HubList.icon[i]),
-              label: HubList.label[i],
+              icon: Icon(icons[i]),
+              label: labels[i],
             )
         ]);
   }
