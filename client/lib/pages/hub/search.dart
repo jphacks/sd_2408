@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Hub extends StatelessWidget{
-  const Hub({super.key});
+class Search extends StatelessWidget{
+  const Search({super.key});
 
   @override
   Widget build(context){

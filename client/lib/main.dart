@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'pages/login/login.dart';
+import 'pages/hub/hub.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
