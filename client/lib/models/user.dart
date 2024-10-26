@@ -11,6 +11,7 @@ class User {
   final String selfIntro;
   final Image icon;
   final String preference;
+  final List<int> groupIDs;
 
   User(
       {required this.userID,
@@ -22,20 +23,22 @@ class User {
       required this.githubURL,
       required this.selfIntro,
       required this.icon,
-      required this.preference});
+      required this.preference,
+      required this.groupIDs});
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      userID: json["userID"],
-      name: json["name"],
-      birthday: json["birthday"],
-      email: json["email"],
-      password: json["password"],
-      place: json["place"],
-      githubURL: json["githubURL"],
-      selfIntro: json["selfIntro"],
-      icon: json["icon"],
-      preference: json["preference"]
+        userID: json["userID"],
+        name: json["name"],
+        birthday: json["birthday"],
+        email: json["email"],
+        password: json["password"],
+        place: json["place"],
+        githubURL: json["githubURL"],
+        selfIntro: json["selfIntro"],
+        icon: json["icon"],
+        preference: json["preference"],
+        groupIDs: json["groupIDs"]
     );
   }
 }
