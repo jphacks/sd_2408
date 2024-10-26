@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Hub extends StatelessWidget{
-  const Hub({super.key});
+class Notification extends StatelessWidget{
+  const Notification({super.key});
 
   @override
   Widget build(context){

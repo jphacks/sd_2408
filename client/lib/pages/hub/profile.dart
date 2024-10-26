@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Hub extends StatelessWidget{
-  const Hub({super.key});
+class Profile extends StatelessWidget{
+  const Profile({super.key});
 
   @override
   Widget build(context){
