@@ -7,7 +7,7 @@ final dummyProfiles = [
     'age': 25,
     'location': '東京',
     'image': 'https://picsum.photos/200',
-    'interests': ['旅行', '料理', '映画鑑賞'],
+    'interests': ['Kotlin', 'Flutter', ],
     'bio': '旅行が大好きで、休みの日は新しい場所を探検しています。料理も得意で、特に和食を作るのが好きです。'
   },
   {
@@ -15,7 +15,7 @@ final dummyProfiles = [
     'age': 28,
     'location': '大阪',
     'image': 'https://picsum.photos/200',
-    'interests': ['スポーツ', '音楽', 'カフェ巡り'],
+    'interests': ['PYthon', 'C', 'Dart'],
     'bio': 'スポーツ観戦が趣味です。休日はカフェでゆっくり過ごすのが好きです。'
   },
 ];
