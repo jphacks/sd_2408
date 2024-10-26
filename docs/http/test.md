@@ -1,7 +1,5 @@
 # POST
 
-
-
 - /add/user(token必要)これは使えない
 
     - 入力できる値(JSONでの受け取り)
