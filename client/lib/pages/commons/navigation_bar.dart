@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'commons.dart';
 
-class SegonNavigationBar extends StatelessWidget {
-  const SegonNavigationBar({
+const double p = 8;
+const double n = 8;
+
+class HackNavigationBar extends StatelessWidget {
+  const HackNavigationBar({
     super.key,
     required this.index,
     required this.changeIndex,
@@ -13,7 +17,7 @@ class SegonNavigationBar extends StatelessWidget {
   @override
   Widget build(context) {
     return NavigationBar(
-        backgroundColor: Colors.orange,
+        backgroundColor: Colors.green,
         onDestinationSelected: changeIndex,
         selectedIndex: index,
         destinations: [
@@ -48,32 +52,4 @@ Widget listTile(BuildContext context, i, void Function(int) changeIndex) {
       onPressed: () {
         changeIndex(i);
       });
-}
-
-class HubList {
-  static final ui = [
-    const HubUI(),
-    const SearchUI(),
-    const Post(),
-    const NotificationUI(),
-    const ProfileUI(),
-  ];
-
-  static final floatingActionButton = [
-    null,
-    searchFloatingActionButton(), //twitter で投稿するボタン
-    null,
-    null,
-    null,
-  ];
-
-  static const label = ["home", "search", "post", "notify", "profile"];
-
-  static const icon = [
-    Icons.home,
-    Icons.search,
-    Icons.image,
-    Icons.notifications,
-    Icons.person
-  ];
 }

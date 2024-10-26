@@ -14,8 +14,8 @@ void main() async {
 }
 
 final GoRouter _router = GoRouter(routes: [
-  GoRoute(path: "/", builder: (context, stage) => const Login()),
-  GoRoute(path: "/hub", builder: (context, stage) => const Hub()),
+  GoRoute(path: "/login", builder: (context, stage) => const Login()),
+  GoRoute(path: "/", builder: (context, stage) => const Hub()),
 ]);
 
 class MainApp extends StatelessWidget {
