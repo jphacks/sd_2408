@@ -18,13 +18,13 @@ func SaveUser(c echo.Context ,user *model.User)error{
 	return c.JSON(http.StatusOK, user)
 }
 
-func GetUser(c echo.Context ,email string, password string)error{
-	if result := DB.Where("email = ? AND password = ?", email, password).First(&model.User{}); result.Error != nil {
+func GetUser(c echo.Context, email string, password string, user *model.User) error {
+	if result := DB.Where("email = ? AND password = ?", email, password).First(user); result.Error != nil {
 		if result.Error == gorm.ErrRecordNotFound {
 			return c.JSON(http.StatusNotFound, echo.Map{"message": "User not found"})
 		}
 		return c.JSON(http.StatusInternalServerError, echo.Map{"message": "Failed to retrieve user"})
 	}
 
-	return c.JSON(http.StatusOK, "Get success")
+	return nil
 }

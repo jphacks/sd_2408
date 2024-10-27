@@ -2,10 +2,10 @@ package http
 
 import (
 	"github.com/labstack/echo/v4"
-		"net/http"
+	"net/http"
 	"server/model"
-"strings"
-"server/db"
+	"strings"
+	"server/db"
 	"os"
 	"io"
 	"strconv"
@@ -92,9 +92,30 @@ func postUser(c echo.Context) error {
 	return c.JSON(http.StatusOK, user)
 }
 
+func postGroup(c echo.Context) error {
+	name := c.FormValue("name")
+	userIDStr := c.FormValue("userID")
 
-func postGroup(c echo.Context)error{
-	return c.String(http.StatusOK, "test")
+	userID, err := strconv.Atoi(userIDStr)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, echo.Map{"message": "Invalid user ID format"})
+	}
+
+	var user model.User
+	if err := db.DB.First(&user, userID).Error; err != nil {
+		return c.JSON(http.StatusNotFound, echo.Map{"message": "User not found"})
+	}
+
+	group := model.Group{
+		Name:  name,
+		Users: []model.User{user},
+	}
+
+	if result := db.DB.Create(&group); result.Error != nil {
+		return c.JSON(http.StatusInternalServerError, echo.Map{"message": "Failed to create group"})
+	}
+
+	return c.JSON(http.StatusOK, group)
 }
 
 func postImage(c echo.Context)error{
