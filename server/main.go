@@ -2,9 +2,10 @@ package main
 
 import (
 	"net/http"
-	_ "server/http"
+	server "server/http"
 	_ "server/db"
 	"github.com/labstack/echo/v4"
+
 )
 
 func main() {
@@ -15,17 +16,9 @@ func main() {
 	e.Logger.Fatal(e.Start(":1323"))
 }
 
-// func rooting(e *echo.Echo){
-// 	e.GET("/get/user", getUser)
-// 	e.POST("/post/message", postMessage)
-// 	e.PUT("/put/user", putUser)
-// 	e.DELETE("/delete/message", deleteMessage)
-// }
-
-// //下の感じのやつをhttpの下にあるファイルにそれぞれ記述していく
-
-// func getUser(c echo.Context)error{
-// 	data := c.QueryParam("name")
-// 	//...
-
-// }
+func routing(e *echo.Echo){
+	server.Posts(e)
+	server.Gets(e)
+	server.Puts(e)
+	server.Deletes(e)
+}
