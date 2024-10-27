@@ -7,14 +7,13 @@ import(
 
 type User struct{
 	gorm.Model
-	userID  	int			//'gorm:"not null;index"'
-    name 		string		//'gorm:"not null;index"'
-    birthday 	int			//yyyymmddの8桁
-	email		string
-    Password 	string		//'gorm:"type:varchar(100);unique"'
-    place 		string
-    githubURL 	string
-    selfIntro 	string
-    image 		Image
-    preference  string 		//(興味のある技術)
+  Name 		string		//'gorm:"not null;index"'
+  Birthday 	int			//yyyymmddの8桁
+	Email		string
+  Password 	string		//'gorm:"type:varchar(100);unique"'
+  Place 		string
+  GithubURL 	string
+  SelfIntro 	string
+  Image 		Image
+  Preference  string 		//(興味のある技術)
 }

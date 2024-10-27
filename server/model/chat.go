@@ -3,14 +3,14 @@
 //一旦そのままにしておきます
 package model
 
-import()
+import(
 	"gorm.io/gorm"
 )
 
 type Chat struct{
-	gorn.model
+	gorm.Model
 	directMessageID  	int
     firstUser 			int
     secondUser 			int
-    messages 			List<messages>
+    messages 			[]Message
 }
