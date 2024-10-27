@@ -34,19 +34,20 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-        userID: json["userID"],
-        name: json["name"],
-        birthday: json["birthday"],
-        email: json["email"],
-        password: json["password"],
-        place: json["place"],
-        githubURL: json["githubURL"],
-        selfIntro: json["selfIntro"],
-        icon: json["icon"],
-        preference: json["preference"],
-        followIDs: json["followIDs"],
-        groupIDs: json["groupIDs"],
-        directMessageIDs: json["direct"],
+      userID: json["ID"],
+      name: json["Name"],
+      birthday: json["Birthday"],
+      email: json["Email"],
+      password: json["Password"],
+      place: json["Place"],
+      githubURL: json["GithubURL"],
+      selfIntro: json["SelfIntro"],
+      icon: Image.fromJson(json["Image"]),
+      preference: json["Preference"],
+      followIDs: json["FollowIDs"] != null ? List<int>.from(json["FollowIDs"]) : [],
+      groupIDs: json["GroupIDs"] != null ? List<int>.from(json["GroupIDs"]) : [],
+      directMessageIDs: json["DirectMessageIDs"] != null ? List<int>.from(json["DirectMessageIDs"]) : [], // 修正: nullチェックを追加
     );
   }
+
 }

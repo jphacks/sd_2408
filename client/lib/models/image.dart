@@ -1,15 +1,13 @@
 class Image {
-  final int imageID;
-  final int userID;
-  final String url;
+  final int id;
+  final String filePath;
 
-  Image({required this.imageID, required this.userID, required this.url});
+  Image({required this.id, required this.filePath});
 
-  factory Image.fromJson(Map<String, dynamic> json) {//多分取得だけで良い
+  factory Image.fromJson(Map<String, dynamic> json) {
     return Image(
-      imageID: json["imageID"],
-      userID: json["userID"],
-      url: json["url"]
+      id: json["ID"],
+      filePath: json["FilePath"],
     );
   }
 }
