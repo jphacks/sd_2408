@@ -1,19 +1,21 @@
-//ver.1.0
 package model
 
-import(
+import (
 	"gorm.io/gorm"
 )
 
-type User struct{
+type User struct {
 	gorm.Model
-  Name 		string		//'gorm:"not null;index"'
-  Birthday 	int			//yyyymmddの8桁
-	Email		string
-  Password 	string		//'gorm:"type:varchar(100);unique"'
-  Place 		string
-  GithubURL 	string
-  SelfIntro 	string
-  Image 		Image
-  Preference  string 		//(興味のある技術)
+	Name         string   `gorm:"not null"`
+	Birthday     int
+	Email        string   `gorm:"not null;unique"`
+	Password     string   `gorm:"not null"`
+	Place        string
+	GithubURL    string
+	SelfIntro    string
+	Image        Image    `gorm:"foreignKey:UserID"`
+	Preference    string
+	FollowIDs    []int    `gorm:"type:int[]"`
+	GroupIDs     []int    `gorm:"type:int[]"`
+	DirectMessageIDs []int `gorm:"type:int[]"`
 }
