@@ -12,9 +12,12 @@ class User {
   final Image icon;
   final String preference;
   final List<int> groupIDs;
+  final List<int> followIDs;
+  final List<int> directMessageIDs;
 
   User(
-      {required this.userID,
+      {
+      required this.userID,
       required this.name,
       required this.birthday,
       required this.email,
@@ -24,7 +27,10 @@ class User {
       required this.selfIntro,
       required this.icon,
       required this.preference,
-      required this.groupIDs});
+      this.groupIDs = const [],
+      this.directMessageIDs = const [],
+      this.followIDs = const [],
+      });
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
@@ -38,7 +44,9 @@ class User {
         selfIntro: json["selfIntro"],
         icon: json["icon"],
         preference: json["preference"],
-        groupIDs: json["groupIDs"]
+        followIDs: json["followIDs"],
+        groupIDs: json["groupIDs"],
+        directMessageIDs: json["direct"],
     );
   }
 }

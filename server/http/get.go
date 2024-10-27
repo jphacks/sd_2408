@@ -5,7 +5,7 @@ import (
 	"server/model"
 	"server/db"
 	"github.com/labstack/echo/v4"
-
+	"strconv"
 )
 
 func Gets(e *echo.Echo){
@@ -23,19 +23,31 @@ func getUser(c echo.Context) error {
 
 	var user model.User
 
-	// DBからユーザーを取得
 	if err := db.GetUser(c, email, password, &user); err != nil {
-		return err // すでにエラーメッセージが含まれている
+		return err
 	}
 
-	return c.JSON(http.StatusOK, user) // ユーザー情報を返す
+	return c.JSON(http.StatusOK, user)
 }
 
 
 
-func getGroup(c echo.Context)error{
-	return c.String(http.StatusOK, "test")
+func getGroup(c echo.Context) error {
+	groupIDStr := c.QueryParam("groupID")
+	groupID, err := strconv.Atoi(groupIDStr)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, echo.Map{"message": "Invalid group ID format"})
+	}
+
+	var group model.Group
+	if err := db.GetGroup(c, groupID, &group); err != nil {
+		return err
+	}
+
+	return c.JSON(http.StatusOK, group)
 }
+
+
 
 func getImage(c echo.Context)error{
 	return c.String(http.StatusOK, "test")
