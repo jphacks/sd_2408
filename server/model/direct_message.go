@@ -1,12 +1,12 @@
 package model
 
-import(
+import (
 	"gorm.io/gorm"
 )
 
-type DirectMessage struct{
+type DirectMessage struct {
 	gorm.Model
-	firstUserID int
-	secondUserID int
-	Messages []Message
+	FirstUserID  int      `gorm:"not null"`
+	SecondUserID int      `gorm:"not null"`
+	Messages      []Message `gorm:"foreignKey:DirectMessageID"`
 }

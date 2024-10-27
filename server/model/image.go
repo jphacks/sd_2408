@@ -1,12 +1,11 @@
-//ver.1.1
 package model
 
-import(
+import (
 	"gorm.io/gorm"
 )
 
-type Image struct{
+type Image struct {
 	gorm.Model
-  UserID 		int
-  FilePath 		string
+	UserID   int    `gorm:"not null;index"`
+	FilePath string `gorm:"not null"`
 }

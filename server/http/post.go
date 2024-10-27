@@ -3,11 +3,12 @@ package http
 import (
 	"github.com/labstack/echo/v4"
 		"net/http"
-	// model "server/model"
-
-	// "os"
-	// "io"
-	// "strconv"
+	"server/model"
+"strings"
+"server/db"
+	"os"
+	"io"
+	"strconv"
 )
 
 func Posts(e *echo.Echo){
@@ -19,68 +20,78 @@ func Posts(e *echo.Echo){
 	e.POST("post/hashtag", postHashtag)
 }
 
-func postUser(c echo.Context)error{
-		return c.String(http.StatusOK, "test")
+func postUser(c echo.Context) error {
+	name := c.FormValue("name")
+	email := c.FormValue("email")
+	birthday, err := strconv.Atoi(c.FormValue("birthday"))
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, echo.Map{"message": "Invalid birthday format"})
+	}
 
-	// name := c.FormValue("name")
-	// email := c.FormValue("email")
-	// birthday, err := strconv.Atoi(c.FormValue("birthday"))
+	password := c.FormValue("password")
+	place := c.FormValue("place")
+	githubURL := c.FormValue("githubURL")
+	selfIntro := c.FormValue("selfIntro")
+	preference := c.FormValue("preference")
 
-	// if err != nil {
-	// 	//ここの処理を書いて
-	// }
+	groupIDsStr := c.FormValue("groupIDs")
+	groupIDs := []int{}
 
-	// password := c.FormValue("password")
-	// place := c.FormValue("place")
-	// githubURL := c.FormValue("githubURL")
-	// selfIntro := c.FormValue("selfIntro")
-	// preference := c.FormValue("preference")
+	if groupIDsStr != "" {
+		for _, idStr := range strings.Split(groupIDsStr, ",") {
+			id, err := strconv.Atoi(strings.TrimSpace(idStr))
+			if err != nil {
+				return c.JSON(http.StatusBadRequest, echo.Map{"message": "Invalid group ID format"})
+			}
+			groupIDs = append(groupIDs, id)
+		}
+	}
 
-	// // followIDs := c.FormValue("followIDs")
-	// // groupIDs := c.FormValue("groupIDs")
-	// // directMessageIDs := c.FormValue("directMessageIDs")
+	icon, err := c.FormFile("icon")
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, echo.Map{"message": "Failed to get icon"})
+	}
 
-	// icon, err := c.FormFile("icon")
-	// if err != nil {
-	// 	//ここのエラー処理を書いて
-	// }
+	src, err := icon.Open()
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, echo.Map{"message": "Failed to open icon"})
+	}
+	defer src.Close()
 
-	// src, err := icon.Open()
-	// if err != nil{
-	// 	//ここのエラー処理を書いて
-	// }
-	// defer src.Close()
+	dst, err := os.Create(icon.Filename)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, echo.Map{"message": "Failed to create icon file"})
+	}
+	defer dst.Close()
 
-	// dst, err := os.Create(icon.Filename)
-	// if err != nil{
-	// 	//ここのエラー処理を書いて
-	// }
-	// defer dst.Close()
+	if _, err = io.Copy(dst, src); err != nil {
+		return c.JSON(http.StatusInternalServerError, echo.Map{"message": "Failed to save icon"})
+	}
 
-	// if _, err = io.Copy(dst, src); err != nil {
-	//     //ここのエラー処理を書いて
-	// }
+	image := model.Image{
+		FilePath: icon.Filename,
+	}
 
-	// image := model.Image{
-	// 	FilePath: icon.Filename,
-	// }
+	user := model.User{
+		Name:        name,
+		Birthday:    birthday,
+		Email:       email,
+		Password:    password, // TODO: パスワードをハッシュ化
+		Place:       place,
+		GithubURL:   githubURL,
+		SelfIntro:   selfIntro,
+		Image:       image,
+		Preference:  preference,
+		GroupIDs:    groupIDs,
+	}
 
-	// user := model.User{//TODO PASSWORDをハッシュ関数で暗号化
-	// 	Name: name,
-	// 	Birthday: birthday,
-	// 	Email: email,
-	// 	Password: password,
-	// 	Place: place,
-	// 	GithubURL: githubURL,
-	// 	SelfIntro: selfIntro,
-	// 	Image: image,
-	// 	Preference: preference,
-	// 	//TODO listを含むやつを取得できるようにする
-	// }
+	result := db.SaveUser(c, &user); if result != nil {
+		return c.JSON(http.StatusInternalServerError, echo.Map{"message": "Failed to create user"})
+	}
 
-
-
+	return c.JSON(http.StatusOK, user)
 }
+
 
 func postGroup(c echo.Context)error{
 	return c.String(http.StatusOK, "test")

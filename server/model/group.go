@@ -1,13 +1,12 @@
-//ver.1.2
 package model
 
-import(
+import (
 	"gorm.io/gorm"
 )
 
-type Group struct{
+type Group struct {
 	gorm.Model
-  users 			[]User
-  name 			string
-  messages 	[]Message
+	Users    []User    `gorm:"many2many:user_groups;"`
+	Messages []Message  `gorm:"foreignKey:GroupID"`
+	Name     string     `gorm:"not null"`
 }
